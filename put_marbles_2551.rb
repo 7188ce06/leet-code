@@ -16,7 +16,6 @@ def put_marbles(weights, k)
     end
 
     avgs = avgs.sort_by {|x| x[0]}
-    # puts "AVGS: #{avgs}"
 
     smallest_score = weights[0] + weights[-1]
     i = 0
@@ -34,7 +33,6 @@ def put_marbles(weights, k)
         i += 1
     end
 
-    # puts "L: #{largest_score}\nS: #{smallest_score}"
     largest_score - smallest_score
 end
 
@@ -58,6 +56,13 @@ def put_marbles_bf(weights, k)
         return 0
     end
 
+    # Example: @weights == [8,2,3,4,5] and @k = 3
+    # It's possible to make a cut between any two elements. For example, the cut
+    # between 8 and 2 is known as 1, which is the index of the rightmost
+    # element in the cut pair.
+    # Since @k == 3, I'm concerned with each way to cut @weights twice, as that
+    # partitions @weights into 3 sections. For example the cut [1,2] gives
+    # [[8],[2],[3,4,5]] and the cut [2, 3] gives [[8,2],[3],[4,5]].
     raise "assert" if !(2 <= weights.size)
     cuts = get_seqs(1.upto(weights.size-1).to_a, k-1)
     smallest = nil
