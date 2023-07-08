@@ -1,3 +1,6 @@
+# Solution for leetcode.com problem #2551
+# https://leetcode.com/problems/put-marbles-in-bags/
+
 def put_marbles(weights, k)
     if !(weights.is_a?(Array) and 1 <= weights.size)
         raise "invalid input"
@@ -6,29 +9,31 @@ def put_marbles(weights, k)
     end
 
     i = 1
-    # XXX: Not actually averages, because I don't divide by 2.
-    #      Dividing by 2 causes an issue because the non-integer part of the
-    #      result is lost.
-    avgs = []
+    # At each possible cut location, find the sum of the elements on either
+    # side of the cut.
+    cutpair_sums = []
     while i <= weights.size - 1
-        avgs.append([weights[i-1] + weights[i], i])
+        cutpair_sums.append([weights[i-1] + weights[i], i])
         i += 1
     end
+    cutpair_sums = cutpair_sums.sort_by {|x| x[0]}
 
-    avgs = avgs.sort_by {|x| x[0]}
-
+    # Partition @weights so that the cuts are between the pairs with the smallest
+    # sums.
     smallest_score = weights[0] + weights[-1]
     i = 0
     while i < k - 1
-        index = avgs[i][1]
+        index = cutpair_sums[i][1]
         smallest_score += weights[index-1] + weights[index]
         i += 1
     end
 
+    # Partition @weights so that the cuts are between the pairs with the largest
+    # sums.
     largest_score = weights[0] + weights[-1]
     i = 0
     while i < k - 1
-        index = avgs[avgs.size - 1 - i][1]
+        index = cutpair_sums[cutpair_sums.size - 1 - i][1]
         largest_score += weights[index-1] + weights[index]
         i += 1
     end
