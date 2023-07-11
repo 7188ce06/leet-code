@@ -1,3 +1,22 @@
+# This function rotates a square matrix 90 degrees clockwise.  It starts with
+# the outermost boundary square, rotates it, then proceeds to the next boundary
+# square, rotates it, and so on.  For example, suppose the input is a 4x4 matrix
+# (so, it's composed of a 4x4 and a 2x2 boundary square) that looks like this:
+#     1  2  3  4
+#     5  6  7  8
+#     9  10 11 12
+#     13 14 15 16
+# After rotating the outermost (4x4) boundary the matrix will look like this:
+#     13 9  5  1
+#     14 6  7  2
+#     15 10 11 3
+#     16 12 8  4
+# And afer the next (and final, 2x2) boundary rotation:
+#     13 9  5  1
+#     14 10 6  2
+#     15 11 7  3
+#     16 12 8  4
+# (This function rotates the matrix in-place.)
 def rotate(matrix)
     upperleft = [0,0]
     edgelength = matrix.size
