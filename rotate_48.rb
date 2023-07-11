@@ -1,3 +1,6 @@
+# Solution for leetcode.com problem #48
+# https://leetcode.com/problems/rotate-image/
+
 # This function rotates a square matrix 90 degrees clockwise.  It starts with
 # the outermost boundary square, rotates it, then proceeds to the next boundary
 # square, rotates it, and so on.  For example, suppose the input is a 4x4 matrix
