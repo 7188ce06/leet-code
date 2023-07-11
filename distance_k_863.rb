@@ -31,11 +31,11 @@ def distance_k(root, target, k)
     end
 
     # Find non-descendants of @target that are @k links away.
-    # (That is, search up and back down alternative branches.)
+    # (That is, search up from @target and back down alternative branches.)
     # This is a three step process.
     # (1) Record the parent of each node in @parents.
     # (2) Add direct ancestors which are @k links from @target to @found
-    #     while also adding alternative branches to search down in to
+    #     while also adding alternative branches to down-search to
     #     @downhere.
     # (3) Add nodes that are k links away from @target in the @downhere
     #     branches to @found.
@@ -52,7 +52,6 @@ def distance_k(root, target, k)
             unvisited.push(node.right)
         end
     end
-
 
     downhere = []
     curr = target
