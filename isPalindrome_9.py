@@ -19,6 +19,7 @@ class Solution:
             return self.isPalindromePosInt(x, a)
 
     def isPalindromePosInt(self, x, a):
+        # x has a+1 digits (possibly including leading zeros).
         if a == 0 or a == -1:
             return True
         else:
