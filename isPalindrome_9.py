@@ -18,7 +18,9 @@ class Solution:
                 a += 1
             return self.isPalindromePosInt(x, a)
 
-    def isPalindromePosInt(self, x, a):
+    def isPalindromePosInt(self, x: int, a: int) -> bool:
+        assert 0 <= x
+        assert -1 <= a
         # x has a+1 digits (possibly including leading zeros).
         if a == 0 or a == -1:
             return True
