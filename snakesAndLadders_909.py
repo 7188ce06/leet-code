@@ -10,8 +10,8 @@ def snakesAndLadders(board: list[list[int]]) -> int:
     # Without a history, some inputs will just loop forever. One such
     # example is any board where squares 2 through 7 are all snakes
     # back to square 1.
-    history = {}
     searchFroms = [1]
+    history = {1: True}
     rolls = 0
     while len(searchFroms) != 0:
         rolls += 1
