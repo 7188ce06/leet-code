@@ -1,3 +1,6 @@
+# Solution for leetcode problem #909
+# https://leetcode.com/problems/snakes-and-ladders
+
 def snakesAndLadders(board: list[list[int]]) -> int:
     assert len(board) == len(board[0])
 
