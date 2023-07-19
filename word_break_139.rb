@@ -1,3 +1,6 @@
+# Solution for leetcode.com problem #139
+# https://leetcode.com/problems/word-break/
+
 # Recursive DFS implementation
 # (based on number of matches, but not total match length)
 def word_break(s, word_dict)
@@ -76,6 +79,39 @@ def word_break_bfs(s, word_dict)
   return false
 end
 
+# Iterative BFS w/ DP implementation
+# (based on number of matches, but not total match length)
+def word_break_bfs_with_dp(s, word_dict)
+  raise "rent" if !(s.is_a? String and s.size >= 1)
+  raise "rent" if !(word_dict.is_a? Array and word_dict.size >= 1)
+
+  searchFrom = [0]
+  history = {0 => true}
+  while searchFrom.size != 0
+    start = searchFrom.shift()
+    j = 0
+    while j < word_dict.size
+      w = word_dict[j]
+      if s[start...start+w.size] == w
+        if start + w.size == s.size
+          return true
+        else
+          raise "assert" if !(s.size > w.size)
+          if !history.include?(start+w.size)
+            searchFrom.append(start+w.size)
+            history[start+w.size] = true
+          end
+        end
+      end
+      j += 1
+    end
+  end
+
+  return false
+end
+
+raise "broken" if !(word_break("aaa", ["a", "a", "a", "a"]) == true)
+
 raise "fail" if !(word_break_bfs("a", ["a"]) == true)
 raise "fail" if !(word_break_bfs("a", ["b"]) == false)
 raise "fail" if !(word_break_bfs("a", ["a", "b"]) == true)
@@ -128,8 +164,9 @@ end
 
   word_dict = [s[0...splitat[0]], s[splitat[0]...splitat[1]], s[splitat[1]...splitat[2]], s[splitat[2]..-1]].shuffle
   raise "fail" if !(word_break(s, word_dict) == true)
-  raise "fail" if !(word_break_bfs(s, word_dict) == true)
   raise "fail" if !(word_break_dfs(s, word_dict) == true)
+  raise "fail" if !(word_break_bfs(s, word_dict) == true)
+  raise "fail" if !(word_break_bfs_with_dp(s, word_dict) == true)
 end
 
 # Test generator 2
@@ -161,8 +198,9 @@ end
 
   word_dict = (parts[0] + [parts[1][0], parts[1][1], parts[2][0], parts[2][1]]).shuffle
   raise "fail" if !(word_break(s, word_dict) == true)
-  raise "fail" if !(word_break_bfs(s, word_dict) == true)
   raise "fail" if !(word_break_dfs(s, word_dict) == true)
+  raise "fail" if !(word_break_bfs(s, word_dict) == true)
+  raise "fail" if !(word_break_bfs_with_dp(s, word_dict) == true)
 end
 
 # Test generator 3
@@ -200,6 +238,7 @@ end
     i += 1
   end
 
-  raise "fail: #{s} #{word_dict}" if !(word_break(s, word_dict) == word_break_bfs(s, word_dict))
   raise "fail: #{s} #{word_dict}" if !(word_break(s, word_dict) == word_break_dfs(s, word_dict))
+  raise "fail: #{s} #{word_dict}" if !(word_break(s, word_dict) == word_break_bfs(s, word_dict))
+  raise "fail: #{s} #{word_dict}" if !(word_break(s, word_dict) == word_break_bfs_with_dp(s, word_dict))
 end
